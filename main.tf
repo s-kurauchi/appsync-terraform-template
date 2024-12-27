@@ -12,7 +12,7 @@ resource "aws_appsync_graphql_api" "main" {
 
 resource "aws_appsync_api_key" "main" {
   api_id  = aws_appsync_graphql_api.main.id
-  expires = timeadd(timestamp(), "365d")
+  expires = timeadd(timestamp(), "2160h") # 90日
 }
 
 # Aurora Serverlessクラスター
@@ -113,7 +113,6 @@ resource "aws_appsync_datasource" "rds" {
 
   relational_database_config {
     http_endpoint_config {
-      aws_region = var.aws_region
       db_cluster_identifier = aws_rds_cluster.main.cluster_identifier
       database_name = aws_rds_cluster.main.database_name
       aws_secret_store_arn = aws_secretsmanager_secret.rds_credentials.arn
