@@ -26,4 +26,9 @@ variable "db_password" {
   description = "Database master password"
   type        = string
   sensitive   = true
+}
+
+variable "vpc_id" {
+  description = "VPC ID where Aurora Serverless will be deployed"
+  type        = string
 } 

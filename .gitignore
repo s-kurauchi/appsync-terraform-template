@@ -57,3 +57,7 @@ terraform.rc
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/terraform,visualstudiocode
+
+# Environment variables
+.env
+# .envrc # 実際の環境変数は.envで管理する

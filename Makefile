@@ -18,5 +18,14 @@ fmt:
 validate:
 	terraform validate
 
+# Database commands
+.PHONY: db-dry-run db-apply
+
+db-dry-run:
+	psqldef -U ${TF_VAR_db_user} -W ${TF_VAR_db_password} -h ${DB_HOST} --dry-run ${DB_NAME} < db/schema.sql
+
+db-apply:
+	psqldef -U ${TF_VAR_db_user} -W ${TF_VAR_db_password} -h ${DB_HOST} ${DB_NAME} < db/schema.sql
+
 .PHONY: setup
 setup: init fmt validate 
