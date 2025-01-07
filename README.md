@@ -23,27 +23,24 @@
 ```hcl
 db_username = "your_username"
 db_password = "your_secure_password"
+vpc_id      = "your_vpc_id"
 ```
 
 ## 使用方法
 
-以下の Make コマンドを使用して Terraform を操作できます：
+以下の Make コマンドを使用して Terraform とデータベースを操作できます：
 
 ```bash
-# 初期化
-make init
+# Terraform コマンド
+make init          # 初期化
+make setup         # 初期化、フォーマット、バリデーションを実行
+make plan          # プラン確認
+make apply         # リソースのデプロイ
+make destroy       # リソースの削除
 
-# フォーマットとバリデーション
-make setup
-
-# プラン確認
-make plan
-
-# リソースのデプロイ
-make apply
-
-# リソースの削除
-make destroy
+# データベースコマンド
+make db-dry-run    # データベーススキーマの変更をドライラン
+make db-apply      # データベーススキーマの変更を適用
 ```
 
 ## アーキテクチャ
@@ -54,9 +51,11 @@ make destroy
 - Aurora Serverless（PostgreSQL）
 - Secrets Manager（データベース認証情報用）
 - 必要な IAM ロールとポリシー
+- VPC エンドポイント（AWS AppSync と Aurora Serverless の接続用）
 
 ## 注意事項
 
 - Aurora Serverless はサーバーレスモードで動作し、使用量に応じて自動的にスケーリングします
 - データベースの認証情報は安全に管理するため、AWS Secrets Manager に保存されます
 - AppSync は Aurora Serverless の Data API を使用してデータベースにアクセスします
+- データベースのスキーマ管理には psqldef を使用しています
